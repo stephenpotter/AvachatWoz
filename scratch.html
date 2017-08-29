@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Avatar</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type='text/javascript' src="http://www.botlibre.com/scripts/sdk.js"></script> 
+ 
+</head>
+<body>  
+
+<script type='text/javascript' src="scratch.js"></script>
+
+   <!--script src="js/jquery-1.11.0.min.js"></script-->
+   <!--script src="recordmp3.js"></script-->
+<div id="stopRecordingModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirm stop recording</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to stop recording?</p>
+                <p class="text-warning"><small>If you press 'Stop recording', all the recording will be lost.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="stopRecordingButton" name="stopRecordingButton">Stop recording</button>
+            </div>
+        </div>
+    </div>
+</div>   
+<div class="container col-xs-6 pull-right hidden" id="divContainer">  
+	<h2>
+		<div class="alert alert-info" id="divAlert">
+		Press "Start" button to start recording 
+		</div>
+	</h2>
+     
+	<h3>
+		<div id="divQuestionNo" class="alert alert-info hidden"> 
+		</div>
+	</h3> 
+	<button type="button" class="btn-lg btn-primary" id="startAvatarButton" name="startAvatarButton">Start</button> 
+	<button type="button" class="btn-lg btn-primary hidden" id="stopButton" name="stopButton">Stop recording</button>
+	<button type="button" class="btn-lg btn-primary hidden" id="repeatMessageButton" name="repeatMessageButton">Repeat</button>
+	<button type="button" class="btn-lg btn-primary hidden" id="nextMessageButton" name="nextMessageButton">Next</button> 
+</div>
+
+</body>
+</html>
