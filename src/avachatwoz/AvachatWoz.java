@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wozavachat;
+package avachatwoz;
 
 /**
  *
@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.URI;
 
-public class WOZAvachat {
+public class AvachatWoz {
 
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
