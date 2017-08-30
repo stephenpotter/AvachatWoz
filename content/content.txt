@@ -1,0 +1,36 @@
+0 C:
+	1: Hello I am Ava, I'm here to help you. How are you feeling today?
+1 H:
+	2: I'm fine.
+	9: Not so good.
+2 C:
+	3: Good.
+3 C:
+	4: Shall we do the breathing exercises?
+4 H:
+	5: Yes
+	6: No
+5 C: 
+	7: Great let's start doing the exercise.
+6 C: 
+	8: OK that's fine, just tell me when you need me. Goodbye.
+7 C: 
+	8: OK that's enough for today. Goodbye.
+9 C:	
+	10: I'm sorry to hear that. Is there something I can do to help?
+10 H:
+	11: Just shut up and go away.
+	12: I need advice on how to improve my life.
+	3: Can we do the breathing exercises?
+11 C:	
+	8: OK I'll shut up now.
+12 C:
+	3: I'm not programmed for that, sorry.
+8 C: 
+	FINISH
+	
+
+
+
+
+
