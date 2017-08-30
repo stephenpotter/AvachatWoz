@@ -47,15 +47,20 @@ $(function(){
 		web.processMessages(); 	
 	} 
 	
+	playAvatar("Hello!");
+	
 	var firstTime = "true";
-	setInterval(function(){ 
-		var req = new XMLHttpRequest();  
-		req.open('POST', 'http://localhost:8000/test', false);
-		req.send(firstTime);
-		firstTime = "false";
-		if(req.status == 200)  
-			playAvatar(req.responseText);
-	}, 100);
+	
+	setTimeout(function() {
+		setInterval(function(){ 
+				var req = new XMLHttpRequest();  
+				req.open('POST', 'http://localhost:8000/test', false);
+				req.send(firstTime);
+				firstTime = "false";
+				if(req.status == 200)  
+					playAvatar(req.responseText);
+			}, 100);
+	}, 2000);
 		
 	
   	

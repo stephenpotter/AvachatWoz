@@ -26,11 +26,4 @@
 	8: OK I'll shut up now.
 12 C:
 	3: I'm not programmed for that, sorry.
-8 C: 
-	FINISH
-	
-
-
-
-
-
+8 FIN:
