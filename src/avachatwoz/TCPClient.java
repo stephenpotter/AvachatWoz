@@ -33,7 +33,7 @@ public class TCPClient extends Thread {
         
     }
     
-    String readIPFromFile() {
+    final String readIPFromFile() {
         try {
             BufferedReader r = new BufferedReader(new FileReader("server_ip.txt"));
             String ip = r.readLine();
