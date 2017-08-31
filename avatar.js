@@ -40,8 +40,8 @@ $(function(){
 		//web.voice = "dfki-poppy-hsmm";
 		//web.voice = "dfki-poppy"; 
 
-		web.width = w*0.45;
-		web.height = h*0.95;
+		web.width = h;//*0.45;
+		web.height = h;//*0.95;
 		web.createBox();
 		web.addMessage(message, "like", "", "");
 		web.processMessages(); 	
