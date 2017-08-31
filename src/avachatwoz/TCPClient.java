@@ -17,11 +17,11 @@ import java.util.logging.Logger;
 public class TCPClient extends Thread {
     DataOutputStream outToServer;
     BufferedReader inFromServer;
-    Receiver r;
+    Receiver receiver;
     TCPClient(Receiver r) {
         try {
             String ip = readIPFromFile();
-            this.r = r;
+            this.receiver = r;
             System.out.println("Starting client");
             Socket clientSocket = new Socket(ip, 6789);
             outToServer = new DataOutputStream(clientSocket.getOutputStream());
@@ -65,7 +65,7 @@ public class TCPClient extends Thread {
                 System.out.println("in tcp loop");
                 String sentence = inFromServer.readLine();
                 System.out.println("Received sentence "+sentence);
-                r.receiveInput(sentence);
+                receiver.receiveInput(sentence);
                 MySleeper.sleep(100);
             }
         } catch (IOException ex) {
