@@ -5,15 +5,11 @@
  */
 package avachatwoz;
 
-import java.awt.ComponentOrientation;
 import java.awt.Container;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -21,7 +17,7 @@ import javax.swing.JFrame;
  *
  * @author samf
  */
-public class GUI implements Receiver, ActionListener {
+public class GUI implements Receiver, ActionListener, Runnable {
 
     JFrame frame;
     JButton[] buttons;
@@ -38,6 +34,7 @@ public class GUI implements Receiver, ActionListener {
             buttons[i] = new JButton();
             buttons[i].addActionListener(this);
         }
+        buttons[0].setText("Start system");
         addComponentsToPane(frame.getContentPane());
         //Display the window.
         frame.pack();
@@ -60,8 +57,11 @@ public class GUI implements Receiver, ActionListener {
     }
 
     void setOptions(List<String> options) {
+        System.out.println("Inside set options");
         for (int i = 0; i < options.size(); ++i) {
-            buttons[i].setText(options.get(i));
+            String option = options.get(i);
+            System.out.println("Setting option "+option);
+            buttons[i].setText(option);
         }
     }
 
@@ -69,7 +69,7 @@ public class GUI implements Receiver, ActionListener {
         m = new ContentManager();
         m.read("content.txt");
         client.start();
-       
+
     }
 
     public static void main(String args[]) {
@@ -80,23 +80,27 @@ public class GUI implements Receiver, ActionListener {
 
     void startManager() {
         m.start();
+        System.out.println("Started manager");
         while (!m.finished()) {
+           // System.out.println("In loop (not finished)");
+
             if (!m.blocked()) {
+                System.out.println("Not blocked");
+
                 String out = m.next();
                 if (out != null) {
+                    System.out.println("Sending message out");
+
                     client.send(out);
                     MySleeper.sleep(2000);
                 } else {
+                    System.out.println("Showing options");
+
                     List<String> options = m.getOptions();
                     setOptions(options);
                 }
-                
             }
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ContentManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            MySleeper.sleep(100);
         }
         System.out.println("finished");
     }
@@ -105,17 +109,30 @@ public class GUI implements Receiver, ActionListener {
     public void receiveInput(String input) {
         if (input.equals("restart")) {
             System.out.println("GUI received restart");
-            startManager();
-
+            //startManager();
+            //new Thread(this).start();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("actionPerformed");
         String s = e.getActionCommand();
-        m.chooseOption(s);
+        if (s.equals("Start system")) {
+            //startManager();
+            new Thread(this).start();
+            
+        } else {
+            m.chooseOption(s);
+        }
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void run() {
+        startManager();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
