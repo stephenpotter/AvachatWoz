@@ -23,6 +23,7 @@ public class GUI implements Receiver, ActionListener, Runnable {
     JButton[] buttons;
     TCPClient client;
     ContentManager m;
+    final static int NUM_BUTTONS = 8;
 
     public GUI(String title) {
         frame = new JFrame(title);
@@ -30,12 +31,11 @@ public class GUI implements Receiver, ActionListener, Runnable {
 
         //Set up the content pane.
         buttons = new JButton[8];
-        for (int i = 0; i < 8; ++i) {
-            buttons[i] = new JButton();
-            buttons[i].addActionListener(this);
-        }
-        buttons[0].setText("Start system");
+
+        //       buttons[0].setText("Start system");
         addComponentsToPane(frame.getContentPane());
+        setStartOptions();
+       
         //Display the window.
         frame.pack();
         frame.setSize(800, 400);
@@ -50,17 +50,31 @@ public class GUI implements Receiver, ActionListener, Runnable {
 
         GridLayout layout = new GridLayout(0, 2);
         pane.setLayout(layout);
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < NUM_BUTTONS; ++i) {
+            buttons[i] = new JButton();
+            buttons[i].addActionListener(this);
+
             pane.add(buttons[i]);
         }
 
     }
 
+    final void setStartOptions() {
+        for (int i = 0; i < NUM_BUTTONS; ++i) {
+            String option = "";
+            if (i == 0) {
+                option = "Start system";
+            }
+            buttons[i].setText(option);
+        }
+    }
+
     void setOptions(List<String> options) {
-        System.out.println("Inside set options");
-        for (int i = 0; i < options.size(); ++i) {
-            String option = options.get(i);
-            System.out.println("Setting option "+option);
+        for (int i = 0; i < NUM_BUTTONS; ++i) {
+            String option = "";
+            if (i < options.size()) {
+                option = options.get(i);
+            }
             buttons[i].setText(option);
         }
     }
@@ -82,17 +96,18 @@ public class GUI implements Receiver, ActionListener, Runnable {
         m.start();
         System.out.println("Started manager");
         while (!m.finished()) {
-           // System.out.println("In loop (not finished)");
+            // System.out.println("In loop (not finished)");
 
-            if (!m.blocked()) {
+            String out = "";
+            while (!m.blocked() && !m.finished()) {
                 System.out.println("Not blocked");
 
-                String out = m.next();
-                if (out != null) {
+                String in = m.next();
+                if (in != null) {
                     System.out.println("Sending message out");
-
-                    client.send(out);
-                    MySleeper.sleep(2000);
+                    out += " "+in;
+                    //client.send(out);
+ //                   MySleeper.sleep(2000);
                 } else {
                     System.out.println("Showing options");
 
@@ -100,8 +115,13 @@ public class GUI implements Receiver, ActionListener, Runnable {
                     setOptions(options);
                 }
             }
+            if (!out.equals("")) {
+                client.send(out);
+            }
             MySleeper.sleep(100);
         }
+        //buttons[0].setText("Start system");
+        setStartOptions();
         System.out.println("finished");
     }
 
@@ -122,7 +142,7 @@ public class GUI implements Receiver, ActionListener, Runnable {
         if (s.equals("Start system")) {
             //startManager();
             new Thread(this).start();
-            
+
         } else {
             m.chooseOption(s);
         }

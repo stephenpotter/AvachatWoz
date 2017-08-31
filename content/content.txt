@@ -11,11 +11,11 @@
 	5: Yes
 	6: No
 5 C: 
-	7: Great let's start doing the exercise.
+	7: Great lets start doing the exercise.
 6 C: 
-	8: OK that's fine, just tell me when you need me. Goodbye.
+	8: OK thats fine, just tell me when you need me. Goodbye.
 7 C: 
-	8: OK that's enough for today. Goodbye.
+	8: OK thats enough for today. Goodbye.
 9 C:	
 	10: I'm sorry to hear that. Is there something I can do to help?
 10 H:
@@ -23,7 +23,7 @@
 	12: I need advice on how to improve my life.
 	3: Can we do the breathing exercises?
 11 C:	
-	8: OK I'll shut up now.
+	8: OK I will shut up now.
 12 C:
 	3: I'm not programmed for that, sorry.
 8 FIN:
