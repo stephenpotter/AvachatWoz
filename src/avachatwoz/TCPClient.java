@@ -20,9 +20,10 @@ public class TCPClient extends Thread {
     Receiver r;
     TCPClient(Receiver r) {
         try {
+            String ip = readIPFromFile();
             this.r = r;
             System.out.println("Starting client");
-            Socket clientSocket = new Socket("localhost", 6789);
+            Socket clientSocket = new Socket(ip, 6789);
             outToServer = new DataOutputStream(clientSocket.getOutputStream());
             inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
@@ -30,6 +31,19 @@ public class TCPClient extends Thread {
             Logger.getLogger(TCPClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    String readIPFromFile() {
+        try {
+            BufferedReader r = new BufferedReader(new FileReader("server_ip.txt"));
+            String ip = r.readLine();
+            return ip;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TCPClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TCPClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "localhost";
     }
     public void send(String s) {
         try {    
