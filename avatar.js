@@ -2,7 +2,7 @@ $(function(){
 	//get window size 
 	var w = window.innerWidth;
 	var h = window.innerHeight;
-	SDK.applicationId = "6953184431772864170";
+	SDK.applicationId = "3227388950224771815";
 	var sdk = new SDKConnection();
 	var web = new WebAvatar();
 
@@ -40,8 +40,8 @@ $(function(){
 		//web.voice = "dfki-poppy-hsmm";
 		//web.voice = "dfki-poppy"; 
 
-		web.width = h;//*0.45;
-		web.height = h;//*0.95;
+		web.width = 500;//*0.45;
+		web.height = 600;//*0.95;
 		web.createBox();
 		web.addMessage(message, "like", "", "");
 		web.processMessages(); 	
@@ -57,7 +57,8 @@ $(function(){
 				req.open('POST', 'http://localhost:8000/test', false);
 				req.send(firstTime);
 				firstTime = "false";
-				if(req.status == 200)  
+				if(req.status == 200)
+					document.getElementById("textbox").innerHTML = req.responseText;
 					playAvatar(req.responseText);
 			}, 100);
 	}, 2000);
