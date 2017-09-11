@@ -6,12 +6,16 @@
 package avachatwoz;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -21,6 +25,7 @@ public class GUI implements Receiver, ActionListener, Runnable {
 
     JFrame frame;
     JButton[] buttons;
+    JTextField textField;
     TCPClient client;
     ContentManager m;
     final static int NUM_BUTTONS = 8;
@@ -47,16 +52,31 @@ public class GUI implements Receiver, ActionListener, Runnable {
     }
 
     final void addComponentsToPane(Container pane) {
+        JPanel optionPanel = new JPanel();
+        JPanel textPanel = new JPanel();
+        textField = new JTextField();
+        textField.setPreferredSize(new Dimension(600, 50));
+        textField.setMaximumSize( textField.getPreferredSize() );
+        JButton submitButton = new JButton("Submit");
+        
+        submitButton.addActionListener(this);
 
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.LINE_AXIS));
+        textPanel.add(textField);
+        textPanel.add(submitButton);
+        pane.setLayout(new BoxLayout(pane, BoxLayout.PAGE_AXIS));
+        
         GridLayout layout = new GridLayout(0, 2);
-        pane.setLayout(layout);
+        optionPanel.setLayout(layout);
         for (int i = 0; i < NUM_BUTTONS; ++i) {
             buttons[i] = new JButton();
             buttons[i].addActionListener(this);
 
-            pane.add(buttons[i]);
+            optionPanel.add(buttons[i]);
         }
-
+        pane.add(optionPanel);
+        pane.add(textPanel);
+        
     }
 
     final void setStartOptions() {
@@ -64,6 +84,16 @@ public class GUI implements Receiver, ActionListener, Runnable {
             String option = "";
             if (i == 0) {
                 option = "Start system";
+            }
+            buttons[i].setText(option);
+        }
+    }
+    
+    final void setFreeOptions() {
+        for (int i = 0; i < NUM_BUTTONS; ++i) {
+            String option = "";
+            if (i == 0) {
+                option = "Return to dialogue";
             }
             buttons[i].setText(option);
         }
@@ -143,7 +173,18 @@ public class GUI implements Receiver, ActionListener, Runnable {
             //startManager();
             new Thread(this).start();
 
-        } else {
+        } else if (s.equals("Submit")) {
+            String text = textField.getText();
+            textField.setText("");
+            this.setFreeOptions();
+            System.out.println("got text "+text);
+            if (!text.equals("")) {
+                client.send(text);
+            }
+        } else if (s.equals("Return to dialogue")) {
+            m.goToDefaultState();
+        }
+        else {
             m.chooseOption(s);
         }
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

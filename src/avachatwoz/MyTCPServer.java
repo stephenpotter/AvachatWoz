@@ -52,7 +52,6 @@ public class MyTCPServer extends Thread {
             outToClient = new DataOutputStream(connectionSocket.getOutputStream());
             System.out.println("tcp run init");
             while (true) {
-                System.out.println("In tcp loop");
                 String clientSentence = inFromClient.readLine();
                 r.receiveInput(clientSentence);
                 MySleeper.sleep(100);

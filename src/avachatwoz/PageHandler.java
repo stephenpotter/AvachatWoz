@@ -32,6 +32,7 @@ public class PageHandler implements HttpHandler {
             URI uri = t.getRequestURI();
             //System.out.println(uri + " " + uri.getPath());
             if (uri.getPath().contains("favicon")) {
+                System.out.println("Sending null for favicon");
                 t.sendResponseHeaders(204, -1);
                 return;
             }
@@ -40,6 +41,8 @@ public class PageHandler implements HttpHandler {
 
                 // Object exists and is a file: accept with response code 200.
                 t.sendResponseHeaders(200, 0);
+                System.out.println("Sending page as requested");
+
                 OutputStream os = t.getResponseBody();
                 FileInputStream fs = new FileInputStream(file);
                 final byte[] buffer = new byte[0x10000];

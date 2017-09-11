@@ -2,7 +2,7 @@ $(function(){
 	//get window size 
 	var w = window.innerWidth;
 	var h = window.innerHeight;
-	SDK.applicationId = "3227388950224771815";
+	SDK.applicationId = "9093786369401237623";
 	var sdk = new SDKConnection();
 	var web = new WebAvatar();
 
@@ -57,9 +57,10 @@ $(function(){
 				req.open('POST', 'http://localhost:8000/test', false);
 				req.send(firstTime);
 				firstTime = "false";
-				if(req.status == 200)
+				if(req.status == 200) {
 					document.getElementById("textbox").innerHTML = req.responseText;
 					playAvatar(req.responseText);
+				}
 			}, 100);
 	}, 2000);
 		

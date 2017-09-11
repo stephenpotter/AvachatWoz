@@ -30,6 +30,7 @@ public class InfoHandler implements HttpHandler {
         void send(HttpExchange t, String response) throws IOException {
            // String response = "Response " + num;
             t.sendResponseHeaders(200, response.length());
+            System.out.println("Sending message from GUI");
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
             os.close();
@@ -72,6 +73,7 @@ public class InfoHandler implements HttpHandler {
             if (!sent) {
                 try {
                     t.sendResponseHeaders(204, -1);
+                    //System.out.println("Sending null, no message to send");
                 } catch (IOException ex) {
                     Logger.getLogger(AvachatWoz.class.getName()).log(Level.SEVERE, null, ex);
                 }

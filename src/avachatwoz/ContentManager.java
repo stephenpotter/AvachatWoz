@@ -187,4 +187,10 @@ public class ContentManager {
         }
         System.out.println("All finished!");*/
     }
+
+    void goToDefaultState() {
+        currentState = 3;
+        isBlocked = false;
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
