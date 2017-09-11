@@ -27,12 +27,12 @@ import java.util.regex.Pattern;
 class Transition {
 
     String action;
-    int end;
-    int start;
+    String endState;
+    String startState;
 
-    public Transition(int start, int end, String action) {
-        this.start = start;
-        this.end = end;
+    public Transition(String start, String end, String action) {
+        this.startState = start;
+        this.endState = end;
         this.action = action;
     }
 }
@@ -40,22 +40,22 @@ class Transition {
 class State {
 
     String type;
-    int no;
+    String stateName;
     List<Transition> trans;
 
-    public State(int no, String type) {
-        this.no = no;
+    public State(String stateName, String type) {
+        this.stateName = stateName;
         this.type = type;
         trans = new ArrayList<>();
     }
 
-    public void addTransition(int tNo, String action) {
-        Transition t = new Transition(no, tNo, action);
+    public void addTransition(String endState, String action) {
+        Transition t = new Transition(stateName, endState, action);
         trans.add(t);
     }
     @Override
     public String toString() {
-        return type + " " + no;
+        return type + " " + stateName;
     }
 }
 
@@ -63,16 +63,16 @@ public class ContentManager {
 
     Pattern statePat;
     Pattern transPat;
-    Map<Integer, State> states;
-    int currentState;
+    Map<String, State> states;
+    String currentState;
     boolean isBlocked;
   
     ContentManager() {
-        statePat = Pattern.compile("\\s*(\\d+) (\\w+):\\s*");
-        transPat = Pattern.compile("\\s+(\\d+):(.+)");
+        statePat = Pattern.compile("\\s*(\\w+) (\\w+):\\s*");
+        transPat = Pattern.compile("\\s+(\\w+):(.+)");
         //states = new State[1000];
         states = new HashMap<>();
-        currentState = 0;
+        currentState = "ARE_YOU_STRUGGLING";
         isBlocked = false;
        
     }
@@ -85,17 +85,17 @@ public class ContentManager {
             while ((line = r.readLine()) != null) {
                 Matcher m = statePat.matcher(line);
                 if (m.matches()) {
-                    int stateNo = Integer.parseInt(m.group(1));
-                    String type = m.group(2);
-                    //System.out.println("State "+stateNo+" "+type);
-                    current = new State(stateNo, type);
-                    states.put(stateNo, current);
+                    String state = m.group(2);
+                    String type = m.group(1);
+     //               System.out.println("State "+state+" "+type);
+                    current = new State(state, type);
+                    states.put(state, current);
                 }
                 m = transPat.matcher(line);
                 if (m.matches()) {
-                    int stateNo = Integer.parseInt(m.group(1));
+                    String state = m.group(1);
                     String action = m.group(2).trim();
-                    current.addTransition(stateNo, action);
+                    current.addTransition(state, action);
                   //  System.out.println("Transition "+stateNo+ " "+action);
                 }
             }
@@ -136,7 +136,7 @@ public class ContentManager {
         }
         else {
             System.out.println("Successful: "+chosen.action);
-            currentState = chosen.end;
+            currentState = chosen.endState;
             isBlocked = false;
         }
     }
@@ -146,7 +146,7 @@ public class ContentManager {
         List<Transition> trans = current.trans;
         if (trans.size() == 1) {
             Transition t = trans.get(0);
-            currentState = t.end;
+            currentState = t.endState;
             return t.action;
         } else if (trans.size() > 1) {
             isBlocked = true;
@@ -163,7 +163,7 @@ public class ContentManager {
     }
 
     void start() {
-        currentState = 0;
+        currentState = "ARE_YOU_STRUGGLING";
     }
 
     public static void main(String args[]) {
@@ -189,7 +189,7 @@ public class ContentManager {
     }
 
     void goToDefaultState() {
-        currentState = 3;
+        currentState = "ARE_YOU_STRUGGLING";
         isBlocked = false;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

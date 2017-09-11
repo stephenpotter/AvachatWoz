@@ -1,0 +1,38 @@
+C ARE_YOU_STRUGGLING:
+	STRUGGLING_YES_NO: Hello. Are you struggling with your breathing right now?
+H STRUGGLING_YES_NO:
+	CRISIS: Yes I am struggling.
+	NOT_CRISIS: No I am fine.
+C CRISIS:
+	CRISIS_BREATHING: OK I have sent a message to medical staff to notify them. In the mean time shall we try some breathing exercises to help you calm down?
+H CRISIS_BREATHING: 
+	CRISIS_BREATHING_EXERCISES: Yes, let's try the exercises.
+	TOO_ILL: No, just leave me be.
+C CRISIS_BREATHING_EXERCISES:
+	FINISH: Try relaxed slow deep breathing. Try breathing through pursed lips. Try breathing in before you make any effort, then breath out as you make the effort. Try leaning forward, either sitting or standing. OK I hope you are feeling better now. Please wait for medical assistance. Remember you can speak to me any time. Goodbye for now.
+C TOO_ILL: 
+	FINISH: OK please try to relax. Medical assistance will be with you shortly.
+C NOT_CRISIS:
+	CALENDAR: OK great I am glad you are feeling well. Do you want to know what's on your calendar?
+H CALENDAR:
+	CALENDAR_YES: Yes, what's on my calendar?
+	CALENDAR_NO: No, I don't want to know.
+C CALENDAR_YES:
+	FEEL_ABOUT_CALENDAR: OK this morning at 10 you have your yoga class. Then at 12 you have lunch with your friends. At 4pm you have the Breathe Easy singing class. Then at 7pm you are going to the pub. Are you looking forward to your day?
+C CALENDAR_NO: 
+	FINISH: OK that is fine. Remember you can speak to me any time. Goodbye for now.
+H FEEL_ABOUT_CALENDAR:
+	LOOKING_FORWARD: Yes I'm looking forward to it.
+	NOT_LOOKING_FORWARD: I'm tired I don't really feel like doing anything today.
+C LOOKING_FORWARD:
+	FINISH: Great, I'm glad to hear that. Enjoy your day, and remember you can talk to me any time. Goodbye.
+C NOT_LOOKING_FORWARD:
+	TRY_MOTIVATION: OK, I am sorry to hear you are feeling down. Would you like to try some motivation methods?
+H TRY_MOTIVATION:
+	YES_TRY_MOTIVATION: Yes, let's try the motivation.
+	NO_TRY_MOTIVATION: No just leave me alone.
+C NO_TRY_MOTIVATION:
+	FINISH: OK that is fine. Remember you can speak to me any time. Goodbye for now.
+C YES_TRY_MOTIVATION:
+	FINISH: OK let's try the five ways of wellbeing. Rember to connect with the people around you, your family and friends. Remember to be active, go for a walk or a run, exercising makes you feel good. Take notice, be curious, be aware of the world around you. Keep learning, try something new, learn how to play an instrument or cook your favourite food. And finally, give, do something nice for a friend or a stranger, thank someone and smile. OK I hope that helps you, remember you can speak to me any time you want. Goodbye for now.
+FIN FINISH:
