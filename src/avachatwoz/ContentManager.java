@@ -65,6 +65,8 @@ public class ContentManager {
     Pattern transPat;
     Map<String, State> states;
     String currentState;
+    String startState;
+    String defaultState;
     boolean isBlocked;
   
     ContentManager() {
@@ -82,7 +84,19 @@ public class ContentManager {
             BufferedReader r = new BufferedReader(new FileReader("content/" + fname));
             String line;
             State current = null;
+            int count = 0;
             while ((line = r.readLine()) != null) {
+                if (count==0) {
+                    startState = line.trim();
+                    ++count;
+                    continue;
+                }
+                if (count==1) {
+                    defaultState = line.trim();
+                    ++count;
+                    continue;
+                }
+                
                 Matcher m = statePat.matcher(line);
                 if (m.matches()) {
                     String state = m.group(2);
@@ -98,6 +112,7 @@ public class ContentManager {
                     current.addTransition(state, action);
                   //  System.out.println("Transition "+stateNo+ " "+action);
                 }
+                ++count;
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ContentManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -163,7 +178,7 @@ public class ContentManager {
     }
 
     void start() {
-        currentState = "ARE_YOU_STRUGGLING";
+        currentState = startState;
     }
 
     public static void main(String args[]) {
@@ -189,7 +204,7 @@ public class ContentManager {
     }
 
     void goToDefaultState() {
-        currentState = "ARE_YOU_STRUGGLING";
+        currentState = defaultState;
         isBlocked = false;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

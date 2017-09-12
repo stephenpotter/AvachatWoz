@@ -1,3 +1,5 @@
+ARE_YOU_STRUGGLING
+NOT_CRISIS
 C ARE_YOU_STRUGGLING:
 	STRUGGLING_YES_NO: Hello. Are you struggling with your breathing right now?
 H STRUGGLING_YES_NO:
