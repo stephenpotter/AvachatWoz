@@ -2,7 +2,9 @@ $(function(){
 	//get window size 
 	var w = window.innerWidth;
 	var h = window.innerHeight;
-	SDK.applicationId = "9093786369401237623";
+	//SDK.applicationId = "9093786369401237623";
+	SDK.applicationId = "533100958079164997";
+	
 	var sdk = new SDKConnection();
 	var web = new WebAvatar();
 
@@ -18,7 +20,7 @@ $(function(){
   
 		//***** Female avatar
 		//web.avatar = "667648";    //Julie.webm, emotion:love, like,happy,..., action:smile, laugh, .. 
-		web.avatar = "12601502";    //Julie.webm, emotion:love, like,happy,..., 
+		web.avatar = "321490";    //Julie.webm, emotion:love, like,happy,..., 
 		//web.avatar = "11571268";    //Julie3.webm, emotion:love, like,happy,..., action:smile, laugh, .. 
 		//web.avatar = "780622";    //Sandy no emotion
 		//web.avatar = "1115544";   //Joanie.webm no emotion
