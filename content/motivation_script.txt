@@ -1,0 +1,11 @@
+C LOOKING_FORWARD:
+	FINISH: Great, I'm glad to hear that. Enjoy your day, and remember you can talk to me any time. Goodbye.
+C NOT_LOOKING_FORWARD:
+	TRY_MOTIVATION: OK, I am sorry to hear you are feeling down. Would you like to try some motivation methods?
+H TRY_MOTIVATION:
+	YES_TRY_MOTIVATION: Yes, let's try the motivation.
+	NO_TRY_MOTIVATION: No just leave me alone.
+C NO_TRY_MOTIVATION:
+	FINISH: OK that is fine. Remember you can speak to me any time. Goodbye for now.
+C YES_TRY_MOTIVATION:
+	FINISH: OK let's try the five ways of wellbeing. Rember to connect with the people around you, your family and friends. Remember to be active, go for a walk or a run, exercising makes you feel good. Take notice, be curious, be aware of the world around you. Keep learning, try something new, learn how to play an instrument or cook your favourite food. And finally, give, do something nice for a friend or a stranger, thank someone and smile. OK I hope that helps you, remember you can speak to me any time you want. Goodbye for now.

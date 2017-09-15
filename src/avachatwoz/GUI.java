@@ -111,7 +111,7 @@ public class GUI implements Receiver, ActionListener, Runnable {
 
     void start() {
         m = new ContentManager();
-        m.read("new_script.txt");
+        m.read();
         client.start();
 
     }

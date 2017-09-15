@@ -1,0 +1,5 @@
+start: ARE_YOU_STRUGGLING
+default: NOT_CRISIS
+crisis_script.txt
+calendar_script.txt
+motivation_script.txt

@@ -1,0 +1,12 @@
+C NOT_CRISIS:
+	CALENDAR: OK great I am glad you are feeling well. Do you want to know what's on your calendar?
+H CALENDAR:
+	CALENDAR_YES: Yes, what's on my calendar?
+	CALENDAR_NO: No, I don't want to know.
+C CALENDAR_YES:
+	FEEL_ABOUT_CALENDAR: OK this morning at 10 you have your yoga class. Then at 12 you have lunch with your friends. At 4pm you have the Breathe Easy singing class. Then at 7pm you are going to the pub. Are you looking forward to your day?
+C CALENDAR_YES: 
+	FINISH: OK that is fine. Remember you can speak to me any time. Goodbye for now.
+H FEEL_ABOUT_CALENDAR:
+	LOOKING_FORWARD: Yes I'm looking forward to it.
+	NOT_LOOKING_FORWARD: No I'm not looking forward to it.

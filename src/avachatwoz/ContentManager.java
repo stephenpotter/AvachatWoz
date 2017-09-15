@@ -63,45 +63,73 @@ public class ContentManager {
 
     Pattern statePat;
     Pattern transPat;
+    Pattern startPat;
+    Pattern defaultPat;
+    
     Map<String, State> states;
     String currentState;
     String startState;
     String defaultState;
+    List<String> fileNames;
     boolean isBlocked;
   
     ContentManager() {
         statePat = Pattern.compile("\\s*(\\w+) (\\w+):\\s*");
         transPat = Pattern.compile("\\s+(\\w+):(.+)");
+        startPat = Pattern.compile("\\s*start: (\\w+)\\s*");
+        defaultPat = Pattern.compile("\\s*default: (\\w+)\\s*");
+        fileNames = new ArrayList<String>();
         //states = new State[1000];
         states = new HashMap<>();
-        currentState = "ARE_YOU_STRUGGLING";
         isBlocked = false;
        
     }
 
-    void read(String fname) {
+    
+    void read() {
+        try {
+            BufferedReader r = new BufferedReader(new FileReader("content/config.txt"));
+            String line;
+            while ((line = r.readLine()) != null) {
+                Matcher m = startPat.matcher(line);
+                if (m.matches()) {
+                    startState = m.group(1);
+                    continue;
+                }
+                m = defaultPat.matcher(line);
+                if (m.matches()) {
+                    defaultState = m.group(1);
+                    continue;
+                }
+                fileNames.add(line.trim());
+                
+            }
+            for (String fname : fileNames) {
+                read(fname);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ContentManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ContentManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        
+    }
+    private void read(String fname) {
         try {
             BufferedReader r = new BufferedReader(new FileReader("content/" + fname));
             String line;
             State current = null;
-            int count = 0;
-            while ((line = r.readLine()) != null) {
-                if (count==0) {
-                    startState = line.trim();
-                    ++count;
-                    continue;
-                }
-                if (count==1) {
-                    defaultState = line.trim();
-                    ++count;
-                    continue;
-                }
-                
+            while ((line = r.readLine()) != null) {           
                 Matcher m = statePat.matcher(line);
                 if (m.matches()) {
                     String state = m.group(2);
+                    if (states.containsKey(state)) {
+                        System.err.println("Duplicate states! Please check files");
+                        System.exit(0);
+                    }
                     String type = m.group(1);
-     //               System.out.println("State "+state+" "+type);
+                    System.out.println("State "+state+" "+type);
                     current = new State(state, type);
                     states.put(state, current);
                 }
@@ -110,9 +138,7 @@ public class ContentManager {
                     String state = m.group(1);
                     String action = m.group(2).trim();
                     current.addTransition(state, action);
-                  //  System.out.println("Transition "+stateNo+ " "+action);
                 }
-                ++count;
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ContentManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -181,27 +207,6 @@ public class ContentManager {
         currentState = startState;
     }
 
-    public static void main(String args[]) {
-        ContentManager m = new ContentManager();
-        m.read("content.txt");
-        //System.out.println(m.finished());
-        
-        /*
-        while (!m.finished()) {
-            if (!m.blocked()) {
-                String out = m.next();
-                if (out != null) {
-                    System.out.println(out);
-                }
-            }
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ContentManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        System.out.println("All finished!");*/
-    }
 
     void goToDefaultState() {
         currentState = defaultState;

@@ -1,0 +1,15 @@
+C ARE_YOU_STRUGGLING:
+	STRUGGLING_YES_NO: Hello. Are you struggling with your breathing right now?
+H STRUGGLING_YES_NO:
+	CRISIS: Yes I am struggling.
+	NOT_CRISIS: No I am fine.
+C CRISIS:
+	CRISIS_BREATHING: OK I have sent a message to medical staff to notify them. In the mean time shall we try some breathing exercises to help you calm down?
+H CRISIS_BREATHING: 
+	CRISIS_BREATHING_EXERCISES: Yes, let's try the exercises.
+	TOO_ILL: No, just leave me be.
+C CRISIS_BREATHING_EXERCISES:
+	FINISH: Try relaxed slow deep breathing. Try breathing through pursed lips. Try breathing in before you make any effort, then breath out as you make the effort. Try leaning forward, either sitting or standing. OK I hope you are feeling better now. Please wait for medical assistance. Remember you can speak to me any time. Goodbye for now.
+C TOO_ILL: 
+	FINISH: OK please try to relax. Medical assistance will be with you shortly.
+FIN FINISH:
