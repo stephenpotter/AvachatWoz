@@ -125,7 +125,7 @@ public class ContentManager {
                 if (m.matches()) {
                     String state = m.group(2);
                     if (states.containsKey(state)) {
-                        System.err.println("Duplicate states! Please check files");
+                        System.err.println("Duplicate state "+ state+"! Please check file "+fname);
                         System.exit(0);
                     }
                     String type = m.group(1);
