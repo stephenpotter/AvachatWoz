@@ -5,7 +5,7 @@ H CALENDAR:
 	CALENDAR_NO: No, I don't want to know.
 C CALENDAR_YES:
 	FEEL_ABOUT_CALENDAR: OK this morning at 10 you have your yoga class. Then at 12 you have lunch with your friends. At 4pm you have the Breathe Easy singing class. Then at 7pm you are going to the pub. Are you looking forward to your day?
-C CALENDAR_YES: 
+C CALENDAR_NO: 
 	FINISH: OK that is fine. Remember you can speak to me any time. Goodbye for now.
 H FEEL_ABOUT_CALENDAR:
 	LOOKING_FORWARD: Yes I'm looking forward to it.
