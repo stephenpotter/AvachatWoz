@@ -19,27 +19,28 @@ import java.net.URI;
  */
 public class PageHandler implements HttpHandler {
 
-        @Override
-        /*public void handle(HttpExchange t) throws IOException {
+    @Override
+    /*public void handle(HttpExchange t) throws IOException {
             String response = "This is the response";
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
             os.close();
         } */
-        public void handle(HttpExchange t) throws IOException {
-            //System.out.println("MyHandler");
-            URI uri = t.getRequestURI();
-            //System.out.println(uri + " " + uri.getPath());
-            if (uri.getPath().contains("favicon")) {
-                System.out.println("Sending null for favicon");
-                t.sendResponseHeaders(204, -1);
-                return;
-            }
-            try {
-                File file = new File("." + uri.getPath()).getCanonicalFile();
+    public void handle(HttpExchange t) throws IOException {
+        //System.out.println("MyHandler");
+        URI uri = t.getRequestURI();
+        //System.out.println(uri + " " + uri.getPath());
+        if (uri.getPath().contains("favicon")) {
+            System.out.println("Sending null for favicon");
+            t.sendResponseHeaders(204, -1);
+            return;
+        }
+        try {
+            File file = new File("." + uri.getPath()).getCanonicalFile();
 
-                // Object exists and is a file: accept with response code 200.
+            // Object exists and is a file: accept with response code 200.
+            if (file != null && file.exists()) {
                 t.sendResponseHeaders(200, 0);
                 System.out.println("Sending page as requested");
 
@@ -52,8 +53,12 @@ public class PageHandler implements HttpHandler {
                 }
                 fs.close();
                 os.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                t.sendResponseHeaders(204, -1);
+
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+}

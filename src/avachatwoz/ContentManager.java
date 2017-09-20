@@ -11,10 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -125,7 +123,7 @@ public class ContentManager {
                 if (m.matches()) {
                     String state = m.group(2);
                     if (states.containsKey(state)) {
-                        System.err.println("Duplicate states! Please check files");
+                        System.err.println("Duplicate state "+state+ " in file "+fname+ "! Aborting.");
                         System.exit(0);
                     }
                     String type = m.group(1);
@@ -205,6 +203,7 @@ public class ContentManager {
 
     void start() {
         currentState = startState;
+        isBlocked = false;
     }
 
 

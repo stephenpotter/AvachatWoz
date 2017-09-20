@@ -1,0 +1,16 @@
+#wrap {
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+
+}
+#left_col > p {
+	top: 50%;
+	bottom: 50%;
+	font-size: 60px;
+}
+
+#right_col {
+   float:right;
+}

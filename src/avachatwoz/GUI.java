@@ -29,6 +29,7 @@ public class GUI implements Receiver, ActionListener, Runnable {
     TCPClient client;
     ContentManager m;
     final static int NUM_BUTTONS = 8;
+    private boolean isRunning;
 
     public GUI(String title) {
         frame = new JFrame(title);
@@ -47,6 +48,7 @@ public class GUI implements Receiver, ActionListener, Runnable {
         frame.setVisible(true);
         frame.repaint();
         m = new ContentManager();
+        m.read();
         client = new TCPClient(this);
 
     }
@@ -109,21 +111,20 @@ public class GUI implements Receiver, ActionListener, Runnable {
         }
     }
 
-    void start() {
-        m = new ContentManager();
-        m.read();
+    void startClient() {
+       // m = new ContentManager();
+       // m.read();
         client.start();
 
     }
 
     public static void main(String args[]) {
         GUI gui = new GUI("WOZ");
-        gui.start();
+        gui.startClient();
 
     }
 
     void startManager() {
-        m.start();
         System.out.println("Started manager");
         while (!m.finished()) {
             // System.out.println("In loop (not finished)");
@@ -171,6 +172,7 @@ public class GUI implements Receiver, ActionListener, Runnable {
         String s = e.getActionCommand();
         if (s.equals("Start system")) {
             //startManager();
+            m.start();
             new Thread(this).start();
 
         } else if (s.equals("Submit")) {
@@ -183,6 +185,9 @@ public class GUI implements Receiver, ActionListener, Runnable {
             }
         } else if (s.equals("Return to dialogue")) {
             m.goToDefaultState();
+            if (!isRunning) {
+                new Thread(this).start();
+            }
         }
         else {
             m.chooseOption(s);
@@ -192,7 +197,9 @@ public class GUI implements Receiver, ActionListener, Runnable {
 
     @Override
     public void run() {
+        isRunning = true;
         startManager();
+        isRunning = false;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

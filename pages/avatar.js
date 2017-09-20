@@ -20,7 +20,7 @@ $(function(){
   
 		//***** Female avatar
 		//web.avatar = "667648";    //Julie.webm, emotion:love, like,happy,..., action:smile, laugh, .. 
-		web.avatar = "321490";    //Julie.webm, emotion:love, like,happy,..., 
+		web.avatar = avatar_id;    //Julie.webm, emotion:love, like,happy,..., 
 		//web.avatar = "11571268";    //Julie3.webm, emotion:love, like,happy,..., action:smile, laugh, .. 
 		//web.avatar = "780622";    //Sandy no emotion
 		//web.avatar = "1115544";   //Joanie.webm no emotion
@@ -37,13 +37,13 @@ $(function(){
 		//web.voice = "dfki-obadiah";
 		
 		//***** Female voice
-	    web.voice = "dfki-prudence-hsmm";
+	    web.voice = voice;
 		//web.voice = "dfki-prudence";
 		//web.voice = "dfki-poppy-hsmm";
 		//web.voice = "dfki-poppy"; 
 
-		web.width = 500;//*0.45;
-		web.height = 600;//*0.95;
+		web.width = avatar_width;//*0.45;
+		web.height = avatar_height;//*0.95;
 		web.createBox();
 		web.addMessage(message, "like", "", "");
 		web.processMessages(); 	
